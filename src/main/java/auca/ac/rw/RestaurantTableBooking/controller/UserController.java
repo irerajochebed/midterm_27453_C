@@ -44,28 +44,22 @@ public class UserController {
         }
     }
 
-    // GET → Get all users
+    // GET → All users
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(
-            userService.getAllUsers(),
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    // GET → Get user by id
+    // GET → Get by id
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> getUserById(@PathVariable UUID id) {
-        return new ResponseEntity<>(
-            userService.getUserById(id),
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     // GET → Sorting
@@ -82,7 +76,7 @@ public class UserController {
         );
     }
 
-    // GET → Pagination + Sorting
+    // GET → Pagination
     @GetMapping(
         value = "/paginated",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -98,29 +92,73 @@ public class UserController {
         );
     }
 
-    // GET → Users by province
+    // GET → Find by VILLAGE
     @GetMapping(
-        value = "/by-province",
+        value = "/by-village",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<User>> getUsersByProvince(
-            @RequestParam(required = false) String provinceCode,
-            @RequestParam(required = false) String provinceName) {
+    public ResponseEntity<List<User>> getUsersByVillage(@RequestParam(required = false) String code,@RequestParam(required = false) String name) {
+        return new ResponseEntity<>(
+            userService.getUsersByVillage(code, name),
+            HttpStatus.OK
+        );
+    }
+
+    // GET → Find by CELL
+    @GetMapping(
+        value = "/by-cell",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<User>> getUsersByCell(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String name) {
+        return new ResponseEntity<>(
+            userService.getUsersByCell(code, name),
+            HttpStatus.OK
+        );
+    }
+
+    // GET → Find by SECTOR
+    @GetMapping(
+        value = "/by-sector",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<User>> getUsersBySector(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String name) {
+        return new ResponseEntity<>(
+            userService.getUsersBySector(code, name),
+            HttpStatus.OK
+        );
+    }
+
+    // GET → Find by DISTRICT
+    @GetMapping(
+        value = "/by-district",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<User>> getUsersByDistrict(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String name) {
+        return new ResponseEntity<>(
+            userService.getUsersByDistrict(code, name),
+            HttpStatus.OK
+        );
+    }
+
+    // GET → Requirement 8: Find by PROVINCE
+    @GetMapping(value = "/by-province",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getUsersByProvince(@RequestParam(required = false) String provinceCode,@RequestParam(required = false) String provinceName) {
         return new ResponseEntity<>(
             userService.getUsersByProvince(provinceCode, provinceName),
             HttpStatus.OK
         );
     }
 
-    // PUT → Full update user
-    @PutMapping(
-        value = "/update/{id}",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<?> updateUser(
-            @PathVariable UUID id,
-            @RequestBody User user) {
+    // PUT → Full update
+    @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateUser(@PathVariable UUID id,@RequestBody User user)
+     {
         String result = userService.updateUser(id, user);
         if (result.equals("User updated successfully")) {
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -129,14 +167,13 @@ public class UserController {
         }
     }
 
-    // PATCH → Update phone number only
+    // PATCH → Update phone only
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> patchUser(
-            @PathVariable UUID id,
-            @RequestParam String phoneNumber) {
+    public ResponseEntity<?> patchUser(@PathVariable UUID id,@RequestParam String phoneNumber) 
+    {
         String result = userService.patchUser(id, phoneNumber);
         if (result.equals("User updated successfully")) {
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -145,12 +182,10 @@ public class UserController {
         }
     }
 
-    // DELETE → Delete user
-    @DeleteMapping(
-        value = "/delete/{id}",
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
+    // DELETE
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) 
+    {
         String result = userService.deleteUser(id);
         if (result.equals("User deleted successfully")) {
             return new ResponseEntity<>(result, HttpStatus.OK);
