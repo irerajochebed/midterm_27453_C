@@ -27,7 +27,6 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    // POST → Save booking
     @PostMapping(
         value = "/save",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -46,7 +45,6 @@ public class BookingController {
         }
     }
 
-    // GET → Get all bookings
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -58,7 +56,6 @@ public class BookingController {
         );
     }
 
-    // GET → Get booking by id
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
