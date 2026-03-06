@@ -23,33 +23,23 @@ public class UserService {
     @Autowired
     private LocationRepository locationRepository;
 
-    // Save user with location
+    // Save user
     public String saveUser(User user, String locationId) {
-
-        // Requirement 7: existsBy check
-        // Check if email already exists
         if (userRepository.existsByEmail(user.getEmail())) {
             return "User with this email already exists";
         }
-
-        // Link user to location if locationId provided
         if (locationId != null) {
             Location location = locationRepository
                 .findById(UUID.fromString(locationId))
                 .orElse(null);
-
-            if (location == null) {
-                return "Location not found";
-            }
+            if (location == null) return "Location not found";
             user.setLocation(location);
         }
-
         userRepository.save(user);
         return "User saved successfully";
     }
 
-    // Requirement 3: Sorting only
-    // Sort users by any field ascending or descending
+    // Sorting
     public List<User> getSortedUsers(String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
@@ -57,8 +47,7 @@ public class UserService {
         return userRepository.findAll(sort);
     }
 
-    // Requirement 3: Pagination + Sorting combined
-    // Get users page by page
+    // Pagination
     public Page<User> getPaginatedUsers(int page, int size, String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
@@ -66,11 +55,34 @@ public class UserService {
         return userRepository.findAll(PageRequest.of(page, size, sort));
     }
 
-    // Requirement 8: Get users by province
-    // using traversal method
+    // Find by VILLAGE
+    public List<User> getUsersByVillage(String code, String name) {
+        if (code != null) return userRepository.findByLocation_Code(code);
+        return userRepository.findByLocation_Name(name);
+    }
+
+    // Find by CELL
+    public List<User> getUsersByCell(String code, String name) {
+        if (code != null) return userRepository.findByLocation_Parent_Code(code);
+        return userRepository.findByLocation_Parent_Name(name);
+    }
+
+    // Find by SECTOR
+    public List<User> getUsersBySector(String code, String name) {
+        if (code != null) return userRepository.findByLocation_Parent_Parent_Code(code);
+        return userRepository.findByLocation_Parent_Parent_Name(name);
+    }
+
+    // Find by DISTRICT
+    public List<User> getUsersByDistrict(String code, String name) {
+        if (code != null) return userRepository.findByLocation_Parent_Parent_Parent_Code(code);
+        return userRepository.findByLocation_Parent_Parent_Parent_Name(name);
+    }
+
+    // Requirement 8: Find by PROVINCE
     public List<User> getUsersByProvince(String provinceCode, String provinceName) {
         return userRepository
-            .findByLocation_Parent_Parent_CodeOrLocation_Parent_Parent_Name(
+            .findByLocation_Parent_Parent_Parent_Parent_CodeOrLocation_Parent_Parent_Parent_Parent_Name(
                 provinceCode,
                 provinceName
             );
@@ -80,6 +92,7 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     // Get by id
     public User getUserById(UUID id) {
         return userRepository.findById(id).orElse(null);
