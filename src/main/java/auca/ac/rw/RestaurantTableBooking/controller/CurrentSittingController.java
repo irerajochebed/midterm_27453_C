@@ -26,7 +26,7 @@ public class CurrentSittingController {
     @Autowired
     private CurrentSittingService currentSittingService;
 
-    // POST → Save sitting
+    
     @PostMapping(
         value = "/save",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -44,7 +44,6 @@ public class CurrentSittingController {
         }
     }
 
-    // GET → Get all sittings
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -56,7 +55,6 @@ public class CurrentSittingController {
         );
     }
 
-    // GET → Get sitting by id
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -68,7 +66,6 @@ public class CurrentSittingController {
         );
     }
 
-    // PUT → Full update sitting
     @PutMapping(
         value = "/update/{id}",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -85,7 +82,6 @@ public class CurrentSittingController {
         }
     }
 
-    // PATCH → Update notes only
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -101,7 +97,6 @@ public class CurrentSittingController {
         }
     }
 
-    // DELETE → Delete sitting
     @DeleteMapping(
         value = "/delete/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
