@@ -27,7 +27,7 @@ public class RestaurantTableController {
     @Autowired
     private RestaurantTableService restaurantTableService;
 
-    // POST → Save table
+    
     @PostMapping(
         value = "/save",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -43,7 +43,6 @@ public class RestaurantTableController {
         }
     }
 
-    // POST → Assign staff to table (Many-to-Many)
     @PostMapping(
         value = "/assign-staff",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -60,7 +59,6 @@ public class RestaurantTableController {
         }
     }
 
-    // GET → Get all tables
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -72,7 +70,7 @@ public class RestaurantTableController {
         );
     }
 
-    // GET → Get table by id
+   
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -84,7 +82,7 @@ public class RestaurantTableController {
         );
     }
 
-    // GET → Pagination + Sorting
+    //Pagination and Sorting
     @GetMapping(
         value = "/paginated",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -101,7 +99,6 @@ public class RestaurantTableController {
         );
     }
 
-    // PUT → Full update table
     @PutMapping(
         value = "/update/{id}",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -118,7 +115,6 @@ public class RestaurantTableController {
         }
     }
 
-    // PATCH → Update availability only
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -134,7 +130,6 @@ public class RestaurantTableController {
         }
     }
 
-    // DELETE → Delete table
     @DeleteMapping(
         value = "/delete/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
