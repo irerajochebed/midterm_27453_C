@@ -20,28 +20,22 @@ public class CurrentSittingService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    // Save current sitting
-    // Requirement 6: One-to-One
     public String saveSitting(CurrentSitting sitting, String bookingId) {
 
-        // Requirement 7: existsBy check
-        // One booking can only have ONE sitting
+
         if (currentSittingRepository.existsByBookingId(
                 UUID.fromString(bookingId))) {
             return "Sitting already exists for this booking";
         }
 
-        // Find the booking
         Booking booking = bookingRepository
             .findById(UUID.fromString(bookingId))
             .orElse(null);
 
         if (booking == null) return "Booking not found";
 
-        // Link sitting to booking
         sitting.setBooking(booking);
 
-        // Update booking status to CONFIRMED
         booking.setStatus("CONFIRMED");
         bookingRepository.save(booking);
 
@@ -49,17 +43,15 @@ public class CurrentSittingService {
         return "Current sitting saved successfully";
     }
 
-    // Get all sittings
     public List<CurrentSitting> getAllSittings() {
         return currentSittingRepository.findAll();
     }
 
-    // Get by id
     public CurrentSitting getSittingById(UUID id) {
         return currentSittingRepository.findById(id).orElse(null);
     }
 
-    // PUT - Full update
+    
     public String updateSitting(UUID id, CurrentSitting sitting) {
         CurrentSitting existing = currentSittingRepository
             .findById(id).orElse(null);
@@ -72,7 +64,6 @@ public class CurrentSittingService {
         return "Sitting updated successfully";
     }
 
-    // PATCH - Update notes only
     public String patchSitting(UUID id, String notes) {
         CurrentSitting existing = currentSittingRepository
             .findById(id).orElse(null);
@@ -82,7 +73,6 @@ public class CurrentSittingService {
         return "Sitting updated successfully";
     }
 
-    // DELETE
     public String deleteSitting(UUID id) {
         if (!currentSittingRepository.existsById(id)) 
             return "Sitting not found";
