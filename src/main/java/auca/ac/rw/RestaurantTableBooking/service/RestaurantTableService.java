@@ -73,16 +73,16 @@ public class RestaurantTableService {
             .findAll(PageRequest.of(page, size, sort));
     }
 
-    // Get all tables
+    
     public List<RestaurantTable> getAllTables() {
         return restaurantTableRepository.findAll();
     }
-    // Get by id
+    
     public RestaurantTable getTableById(UUID id) {
         return restaurantTableRepository.findById(id).orElse(null);
     }
 
-    // PUT - Full update
+    
     public String updateTable(UUID id, RestaurantTable table) {
         RestaurantTable existing = restaurantTableRepository
             .findById(id).orElse(null);
@@ -95,7 +95,6 @@ public class RestaurantTableService {
         return "Table updated successfully";
     }
 
-    // PATCH - Update availability only
     public String patchTable(UUID id, boolean available) {
         RestaurantTable existing = restaurantTableRepository
             .findById(id).orElse(null);
@@ -105,7 +104,7 @@ public class RestaurantTableService {
         return "Table updated successfully";
     }
 
-    // DELETE
+    
     public String deleteTable(UUID id) {
         if (!restaurantTableRepository.existsById(id)) 
             return "Table not found";
