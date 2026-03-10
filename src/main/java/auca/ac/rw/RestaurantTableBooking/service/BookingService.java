@@ -28,15 +28,12 @@ public class BookingService {
     @Autowired
     private RestaurantTableRepository restaurantTableRepository;
 
-    // Save booking
     public String saveBooking(Booking booking, String customerId, String tableId) {
 
-        // Find customer
         User customer = userRepository
             .findById(UUID.fromString(customerId))
             .orElse(null);
 
-        // Find table
         RestaurantTable table = restaurantTableRepository
             .findById(UUID.fromString(tableId))
             .orElse(null);
@@ -44,25 +41,20 @@ public class BookingService {
         if (customer == null) return "Customer not found";
         if (table == null) return "Table not found";
 
-        // Check if table is available
         if (!table.isAvailable()) {
             return "Table is not available";
         }
 
-        // Requirement 7: existsBy check
-        // Check if booking already exists for this customer and table
         if (bookingRepository.existsByCustomerIdAndTableId(
                 UUID.fromString(customerId),
                 UUID.fromString(tableId))) {
             return "Booking already exists for this customer and table";
         }
 
-        // Link customer and table to booking
         booking.setCustomer(customer);
         booking.setTable(table);
         booking.setStatus("PENDING");
 
-        // Mark table as unavailable
         table.setAvailable(false);
         restaurantTableRepository.save(table);
 
@@ -70,7 +62,6 @@ public class BookingService {
         return "Booking saved successfully";
     }
 
-    // Requirement 3: Pagination + Sorting
     public Page<Booking> getPaginatedBookings(
             int page, int size,
             String sortBy, String direction) {
@@ -81,22 +72,21 @@ public class BookingService {
             .findAll(PageRequest.of(page, size, sort));
     }
 
-    // Get all bookings
+    
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
 
-    // Get bookings by customer
+    
     public List<Booking> getBookingsByCustomer(String customerId) {
         return bookingRepository
             .findByCustomerId(UUID.fromString(customerId));
     }
-    // Get by id
+   
     public Booking getBookingById(UUID id) {
         return bookingRepository.findById(id).orElse(null);
     }
 
-    // PUT - Full update
     public String updateBooking(UUID id, Booking booking) {
         Booking existing = bookingRepository.findById(id).orElse(null);
         if (existing == null) return "Booking not found";
@@ -108,7 +98,7 @@ public class BookingService {
         return "Booking updated successfully";
     }
 
-    // PATCH - Update status only
+   
     public String patchBooking(UUID id, String status) {
         Booking existing = bookingRepository.findById(id).orElse(null);
         if (existing == null) return "Booking not found";
@@ -117,7 +107,7 @@ public class BookingService {
         return "Booking updated successfully";
     }
 
-    // DELETE
+
     public String deleteBooking(UUID id) {
         if (!bookingRepository.existsById(id)) return "Booking not found";
         bookingRepository.deleteById(id);
