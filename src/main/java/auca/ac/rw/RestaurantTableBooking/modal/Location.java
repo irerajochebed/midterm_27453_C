@@ -25,12 +25,10 @@ public class Location {
     @Enumerated(EnumType.STRING)
     private ELocationType type;
 
-    // Self-referencing → parent location
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Location parent;
 
-    //Getters and Setters
 
     public UUID getId() {
         return id;
