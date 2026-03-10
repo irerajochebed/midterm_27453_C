@@ -22,14 +22,12 @@ public class RestaurantTable {
     private String tableNumber;
     private int capacity;
     private String locationInRestaurant;
-    private boolean available;   // ← changed from isAvailable to available
+    private boolean available;   
     private String tableType;
 
-    // Many-to-Many inverse side
     @ManyToMany(mappedBy = "assignedTables")
     private List<User> staffMembers = new ArrayList<>();
 
-    // Getters and Setters
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -39,10 +37,14 @@ public class RestaurantTable {
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
-    public String getLocationInRestaurant() { return locationInRestaurant; }
-    public void setLocationInRestaurant(String loc) { this.locationInRestaurant = loc; }
+    public String getLocationInRestaurant() {
+         return locationInRestaurant; 
+        }
+    public void setLocationInRestaurant(String loc) {
+         this.locationInRestaurant = loc; 
+        }
 
-    // ← Fixed getter and setter name
+
     public boolean isAvailable() { return available; }
     public void setAvailable(boolean available) { this.available = available; }
 
