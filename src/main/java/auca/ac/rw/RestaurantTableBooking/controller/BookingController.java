@@ -67,7 +67,7 @@ public class BookingController {
         );
     }
 
-    // GET → Pagination + Sorting
+    //Pagination and Sorting
     @GetMapping(
         value = "/paginated",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -84,7 +84,6 @@ public class BookingController {
         );
     }
 
-    // GET → Bookings by customer
     @GetMapping(
         value = "/by-customer",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -97,7 +96,6 @@ public class BookingController {
         );
     }
 
-    // PUT → Full update booking
     @PutMapping(
         value = "/update/{id}",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -114,7 +112,6 @@ public class BookingController {
         }
     }
 
-    // PATCH → Update booking status only
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -130,7 +127,6 @@ public class BookingController {
         }
     }
 
-    // DELETE → Delete booking
     @DeleteMapping(
         value = "/delete/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
