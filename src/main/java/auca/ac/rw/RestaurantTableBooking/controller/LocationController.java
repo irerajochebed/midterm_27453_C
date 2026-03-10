@@ -25,7 +25,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    // POST → Save location
+ 
     @PostMapping(
         value = "/save",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -42,7 +42,6 @@ public class LocationController {
         }
     }
 
-    // GET → Get all locations
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -54,7 +53,7 @@ public class LocationController {
         );
     }
 
-    // GET → Get location by id
+    
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -66,7 +65,7 @@ public class LocationController {
         );
     }
 
-    // PUT → Update full location
+
     @PutMapping(
         value = "/update/{id}",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -83,7 +82,6 @@ public class LocationController {
         }
     }
 
-    // PATCH → Update location name only
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -99,7 +97,6 @@ public class LocationController {
         }
     }
 
-    // DELETE → Delete location
     @DeleteMapping(
         value = "/delete/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
