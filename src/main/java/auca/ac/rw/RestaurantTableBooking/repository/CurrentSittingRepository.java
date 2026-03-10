@@ -8,6 +8,5 @@ import java.util.UUID;
 @Repository
 public interface CurrentSittingRepository extends JpaRepository<CurrentSitting, UUID> {
 
-    // existsBy → checks if sitting already exists for this booking
     Boolean existsByBookingId(UUID bookingId);
 }
