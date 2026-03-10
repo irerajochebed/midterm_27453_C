@@ -24,14 +24,10 @@ public class CurrentSitting {
     private LocalDateTime actualCheckOut;
     private String notes;
 
-    // One-to-One with Booking
-    // This side OWNS the foreign key
-    // unique = true enforces strictly 1:1
     @OneToOne
     @JoinColumn(name = "booking_id", unique = true)
     private Booking booking;
 
-    // Getters and Setters
 
     public UUID getId() {
         return id;
