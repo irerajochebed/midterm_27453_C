@@ -10,8 +10,6 @@ import auca.ac.rw.RestaurantTableBooking.modal.RestaurantTable;
 @Repository
 public interface RestaurantTableRepository extends JpaRepository<RestaurantTable, UUID> {
 
-    // existsBy → checks if table with this number already exists
-    // Requirement 7: existsBy() method
     Boolean existsByTableNumber(String tableNumber);
 
    }
