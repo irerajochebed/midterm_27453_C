@@ -24,26 +24,22 @@ public class Booking {
     private LocalDate bookingDate;
     private LocalTime bookingTime;
     private int numberOfGuests;
-    private String status; // PENDING, CONFIRMED, CANCELLED
+    private String status; 
     private String specialRequest;
 
-    // Many-to-One with User (customer)
-    // One customer can have many bookings
+    
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
 
-    // Many-to-One with RestaurantTable
-    // One table can have many bookings
+    
     @ManyToOne
     @JoinColumn(name = "table_id")
     private RestaurantTable table;
 
-    // One-to-One with CurrentSitting (inverse side)
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private CurrentSitting currentSitting;
 
-    // Getters and Setters
 
     public UUID getId() {
         return id;
