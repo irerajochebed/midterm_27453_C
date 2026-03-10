@@ -32,12 +32,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private ERole role;
 
-    // Many-to-One with Location
+
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
-    // Many-to-Many with RestaurantTable
     @ManyToMany
     @JoinTable(
         name = "table_service",
@@ -46,7 +45,7 @@ public class User {
     )
     private List<RestaurantTable> assignedTables = new ArrayList<>();
 
-    // Getters and Setters
+    
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -68,7 +67,6 @@ public class User {
     public Location getLocation() { return location; }
     public void setLocation(Location location) { this.location = location; }
 
-    // ← Correct getter and setter for assignedTables
     public List<RestaurantTable> getAssignedTables() { return assignedTables; }
     public void setAssignedTables(List<RestaurantTable> assignedTables) { 
         this.assignedTables = assignedTables; 
