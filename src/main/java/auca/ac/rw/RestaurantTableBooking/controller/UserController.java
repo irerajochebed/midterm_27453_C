@@ -27,7 +27,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // POST → Save user
     @PostMapping(
         value = "/save",
         consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -44,7 +43,6 @@ public class UserController {
         }
     }
 
-    // GET → All users
     @GetMapping(
         value = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -53,7 +51,6 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    // GET → Get by id
     @GetMapping(
         value = "/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -62,7 +59,6 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    // GET → Sorting
     @GetMapping(
         value = "/sorted",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -76,7 +72,7 @@ public class UserController {
         );
     }
 
-    // GET → Pagination
+    //Pagination
     @GetMapping(
         value = "/paginated",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -92,7 +88,6 @@ public class UserController {
         );
     }
 
-    // GET → Find by VILLAGE
     @GetMapping(
         value = "/by-village",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -104,7 +99,7 @@ public class UserController {
         );
     }
 
-    // GET → Find by CELL
+
     @GetMapping(
         value = "/by-cell",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -118,7 +113,6 @@ public class UserController {
         );
     }
 
-    // GET → Find by SECTOR
     @GetMapping(
         value = "/by-sector",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -132,7 +126,6 @@ public class UserController {
         );
     }
 
-    // GET → Find by DISTRICT
     @GetMapping(
         value = "/by-district",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -146,7 +139,6 @@ public class UserController {
         );
     }
 
-    // GET → Requirement 8: Find by PROVINCE
     @GetMapping(value = "/by-province",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUsersByProvince(@RequestParam(required = false) String provinceCode,@RequestParam(required = false) String provinceName) {
         return new ResponseEntity<>(
@@ -155,7 +147,6 @@ public class UserController {
         );
     }
 
-    // PUT → Full update
     @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateUser(@PathVariable UUID id,@RequestBody User user)
      {
@@ -167,7 +158,7 @@ public class UserController {
         }
     }
 
-    // PATCH → Update phone only
+
     @PatchMapping(
         value = "/patch/{id}",
         produces = MediaType.APPLICATION_JSON_VALUE
@@ -182,7 +173,7 @@ public class UserController {
         }
     }
 
-    // DELETE
+    
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@PathVariable UUID id) 
     {
