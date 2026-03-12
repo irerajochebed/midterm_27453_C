@@ -23,70 +23,66 @@ public class RestaurantTableService {
     @Autowired
     private UserRepository userRepository;
 
-    // Save restaurant table
     public String saveTable(RestaurantTable table) {
-
-        // Requirement 7: existsBy check
-        if (restaurantTableRepository.existsByTableNumber(table.getTableNumber())) {
+        if (restaurantTableRepository.existsByTableNumber(
+                table.getTableNumber())) {
             return "Table with this number already exists";
         }
-
         table.setAvailable(true);
         restaurantTableRepository.save(table);
         return "Table saved successfully";
     }
 
-    // Requirement 4: Many-to-Many
-    // Assign staff to table
     public String assignStaffToTable(String tableId, String staffId) {
         RestaurantTable table = restaurantTableRepository
             .findById(UUID.fromString(tableId))
             .orElse(null);
-
         User staff = userRepository
             .findById(UUID.fromString(staffId))
             .orElse(null);
-
-        if (table == null) return "Table not found";
-        if (staff == null) return "Staff not found";
-
-        // Add table to staff assigned tables list
-        // This updates the table_service join table
+        if (table == null) {
+            return "Table not found";
+        }
+        if (staff == null) {
+            return "Staff not found";
+        }
         List<RestaurantTable> assignedTables = staff.getAssignedTables();
         if (!assignedTables.contains(table)) {
             assignedTables.add(table);
             staff.setAssignedTables(assignedTables);
             userRepository.save(staff);
         }
-
         return "Staff assigned to table successfully";
     }
 
-    // Requirement 3: Pagination + Sorting
     public Page<RestaurantTable> getPaginatedTables(
             int page, int size,
             String sortBy, String direction) {
-        Sort sort = direction.equalsIgnoreCase("desc")
-            ? Sort.by(sortBy).descending()
-            : Sort.by(sortBy).ascending();
+        Sort sort;
+        if (direction.equalsIgnoreCase("desc")) {
+            sort = Sort.by(sortBy).descending();
+        } else {
+            sort = Sort.by(sortBy).ascending();
+        }
         return restaurantTableRepository
             .findAll(PageRequest.of(page, size, sort));
     }
 
-    
     public List<RestaurantTable> getAllTables() {
         return restaurantTableRepository.findAll();
     }
-    
+
     public RestaurantTable getTableById(UUID id) {
         return restaurantTableRepository.findById(id).orElse(null);
     }
 
-    
     public String updateTable(UUID id, RestaurantTable table) {
         RestaurantTable existing = restaurantTableRepository
-            .findById(id).orElse(null);
-        if (existing == null) return "Table not found";
+            .findById(id)
+            .orElse(null);
+        if (existing == null) {
+            return "Table not found";
+        }
         existing.setTableNumber(table.getTableNumber());
         existing.setCapacity(table.getCapacity());
         existing.setLocationInRestaurant(table.getLocationInRestaurant());
@@ -97,17 +93,20 @@ public class RestaurantTableService {
 
     public String patchTable(UUID id, boolean available) {
         RestaurantTable existing = restaurantTableRepository
-            .findById(id).orElse(null);
-        if (existing == null) return "Table not found";
+            .findById(id)
+            .orElse(null);
+        if (existing == null) {
+            return "Table not found";
+        }
         existing.setAvailable(available);
         restaurantTableRepository.save(existing);
         return "Table updated successfully";
     }
 
-    
     public String deleteTable(UUID id) {
-        if (!restaurantTableRepository.existsById(id)) 
+        if (!restaurantTableRepository.existsById(id)) {
             return "Table not found";
+        }
         restaurantTableRepository.deleteById(id);
         return "Table deleted successfully";
     }
