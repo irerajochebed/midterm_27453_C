@@ -23,7 +23,6 @@ public class UserService {
     @Autowired
     private LocationRepository locationRepository;
 
-    
     public String saveUser(User user, String locationId) {
         if (userRepository.existsByEmail(user.getEmail())) {
             return "User with this email already exists";
@@ -32,54 +31,75 @@ public class UserService {
             Location location = locationRepository
                 .findById(UUID.fromString(locationId))
                 .orElse(null);
-            if (location == null) return "Location not found";
+            if (location == null) {
+                return "Location not found";
+            }
             user.setLocation(location);
         }
         userRepository.save(user);
         return "User saved successfully";
     }
 
-    // Sorting
     public List<User> getSortedUsers(String sortBy, String direction) {
-        Sort sort = direction.equalsIgnoreCase("desc")
-            ? Sort.by(sortBy).descending()
-            : Sort.by(sortBy).ascending();
+        Sort sort;
+        if (direction.equalsIgnoreCase("desc")) {
+            sort = Sort.by(sortBy).descending();
+        } else {
+            sort = Sort.by(sortBy).ascending();
+        }
         return userRepository.findAll(sort);
     }
 
-    // Pagination
-    public Page<User> getPaginatedUsers(int page, int size, String sortBy, String direction) {
-        Sort sort = direction.equalsIgnoreCase("desc")
-            ? Sort.by(sortBy).descending()
-            : Sort.by(sortBy).ascending();
+    public Page<User> getPaginatedUsers(
+            int page, int size,
+            String sortBy, String direction) {
+        Sort sort;
+        if (direction.equalsIgnoreCase("desc")) {
+            sort = Sort.by(sortBy).descending();
+        } else {
+            sort = Sort.by(sortBy).ascending();
+        }
         return userRepository.findAll(PageRequest.of(page, size, sort));
     }
 
     public List<User> getUsersByVillage(String code, String name) {
-        if (code != null) return userRepository.findByLocation_Code(code);
-        return userRepository.findByLocation_Name(name);
+        if (code != null) {
+            return userRepository.findByLocation_Code(code);
+        } else {
+            return userRepository.findByLocation_Name(name);
+        }
     }
 
-    
     public List<User> getUsersByCell(String code, String name) {
-        if (code != null) return userRepository.findByLocation_Parent_Code(code);
-        return userRepository.findByLocation_Parent_Name(name);
+        if (code != null) {
+            return userRepository.findByLocation_Parent_Code(code);
+        } else {
+            return userRepository.findByLocation_Parent_Name(name);
+        }
     }
 
-    
     public List<User> getUsersBySector(String code, String name) {
-        if (code != null) return userRepository.findByLocation_Parent_Parent_Code(code);
-        return userRepository.findByLocation_Parent_Parent_Name(name);
+        if (code != null) {
+            return userRepository
+                .findByLocation_Parent_Parent_Code(code);
+        } else {
+            return userRepository
+                .findByLocation_Parent_Parent_Name(name);
+        }
     }
 
-    
     public List<User> getUsersByDistrict(String code, String name) {
-        if (code != null) return userRepository.findByLocation_Parent_Parent_Parent_Code(code);
-        return userRepository.findByLocation_Parent_Parent_Parent_Name(name);
+        if (code != null) {
+            return userRepository
+                .findByLocation_Parent_Parent_Parent_Code(code);
+        } else {
+            return userRepository
+                .findByLocation_Parent_Parent_Parent_Name(name);
+        }
     }
 
-    
-    public List<User> getUsersByProvince(String provinceCode, String provinceName) {
+    public List<User> getUsersByProvince(
+            String provinceCode, String provinceName) {
         return userRepository
             .findByLocation_Parent_Parent_Parent_Parent_CodeOrLocation_Parent_Parent_Parent_Parent_Name(
                 provinceCode,
@@ -87,20 +107,19 @@ public class UserService {
             );
     }
 
-    
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    
     public User getUserById(UUID id) {
         return userRepository.findById(id).orElse(null);
     }
 
-
     public String updateUser(UUID id, User user) {
         User existing = userRepository.findById(id).orElse(null);
-        if (existing == null) return "User not found";
+        if (existing == null) {
+            return "User not found";
+        }
         existing.setFullName(user.getFullName());
         existing.setEmail(user.getEmail());
         existing.setPassword(user.getPassword());
@@ -110,18 +129,20 @@ public class UserService {
         return "User updated successfully";
     }
 
-    
     public String patchUser(UUID id, String phoneNumber) {
         User existing = userRepository.findById(id).orElse(null);
-        if (existing == null) return "User not found";
+        if (existing == null) {
+            return "User not found";
+        }
         existing.setPhoneNumber(phoneNumber);
         userRepository.save(existing);
         return "User updated successfully";
     }
 
-    
     public String deleteUser(UUID id) {
-        if (!userRepository.existsById(id)) return "User not found";
+        if (!userRepository.existsById(id)) {
+            return "User not found";
+        }
         userRepository.deleteById(id);
         return "User deleted successfully";
     }
