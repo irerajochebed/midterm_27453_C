@@ -38,8 +38,12 @@ public class BookingService {
             .findById(UUID.fromString(tableId))
             .orElse(null);
 
-        if (customer == null) return "Customer not found";
-        if (table == null) return "Table not found";
+        if (customer == null){
+            return "Customer not found";
+        } 
+        if (table == null){
+            return "Table not found";
+        } 
 
         if (!table.isAvailable()) {
             return "Table is not available";
@@ -89,7 +93,9 @@ public class BookingService {
 
     public String updateBooking(UUID id, Booking booking) {
         Booking existing = bookingRepository.findById(id).orElse(null);
-        if (existing == null) return "Booking not found";
+        if (existing == null){
+            return "Booking not found";
+        } 
         existing.setBookingDate(booking.getBookingDate());
         existing.setBookingTime(booking.getBookingTime());
         existing.setNumberOfGuests(booking.getNumberOfGuests());
@@ -101,7 +107,9 @@ public class BookingService {
    
     public String patchBooking(UUID id, String status) {
         Booking existing = bookingRepository.findById(id).orElse(null);
-        if (existing == null) return "Booking not found";
+        if (existing == null){
+            return "Booking not found";
+        } 
         existing.setStatus(status);
         bookingRepository.save(existing);
         return "Booking updated successfully";
@@ -109,7 +117,9 @@ public class BookingService {
 
 
     public String deleteBooking(UUID id) {
-        if (!bookingRepository.existsById(id)) return "Booking not found";
+        if (!bookingRepository.existsById(id)){
+            return "Booking not found";
+        } 
         bookingRepository.deleteById(id);
         return "Booking deleted successfully";
     }
