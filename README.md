@@ -8,7 +8,7 @@
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 The **Restaurant Table Booking System** is a RESTful API built with
 Spring Boot that manages restaurant table reservations. The system allows
@@ -18,7 +18,7 @@ all operations. It also integrates Rwanda's administrative location hierarchy
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Technology        | Version   | Purpose                        |
 |-------------------|-----------|--------------------------------|
@@ -56,7 +56,7 @@ current_sittings
 
 ---
 
-## 🗂️ Database Tables
+## Database Tables
 
 ### 1. location
 Stores Rwanda administrative hierarchy using self-referencing relationship.
@@ -140,7 +140,7 @@ Auto-created Many-to-Many join table between staff and tables.
 
 ---
 
-## 🔗 Relationships
+## Relationships
 
 | Relationship | Tables                          | Type         |
 |--------------|---------------------------------|--------------|
@@ -152,7 +152,7 @@ Auto-created Many-to-Many join table between staff and tables.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```
 src/main/java/auca/ac/rw/RestaurantTableBooking/
 │
@@ -191,7 +191,7 @@ src/main/java/auca/ac/rw/RestaurantTableBooking/
 
 ---
 
-## 🚀 API Endpoints
+## API Endpoints
 
 ### Location Endpoints
 | Method | URL                              | Description              |
@@ -280,20 +280,20 @@ src/main/java/auca/ac/rw/RestaurantTableBooking/
 
 ---
 
-#  Application starts at:
+### Application starts at:
 http://localhost:8080
 ```
 
 ---
 
-## 📸 Postman Test Screenshots
+## Postman Test Screenshots
 
 All API endpoints have been tested using Postman.
-Screenshots are available in the `postman-screenshots/` folder.
+Screenshots are available in the [postman-screenshots/`](https://github.com/irerajochebed/midterm_27453_C/tree/main/postman-screenshots) folder.
 
 ---
 
-## 👩‍💻 Author
+## Author
 ```
 Name:        IRERA Mukawera Jockebed
 Student ID:  27453
