@@ -21,24 +21,19 @@ public class CurrentSittingService {
     private BookingRepository bookingRepository;
 
     public String saveSitting(CurrentSitting sitting, String bookingId) {
-
-
         if (currentSittingRepository.existsByBookingId(
                 UUID.fromString(bookingId))) {
             return "Sitting already exists for this booking";
         }
-
         Booking booking = bookingRepository
             .findById(UUID.fromString(bookingId))
             .orElse(null);
-
-        if (booking == null) return "Booking not found";
-
+        if (booking == null) {
+            return "Booking not found";
+        }
         sitting.setBooking(booking);
-
         booking.setStatus("CONFIRMED");
         bookingRepository.save(booking);
-
         currentSittingRepository.save(sitting);
         return "Current sitting saved successfully";
     }
@@ -51,11 +46,13 @@ public class CurrentSittingService {
         return currentSittingRepository.findById(id).orElse(null);
     }
 
-    
     public String updateSitting(UUID id, CurrentSitting sitting) {
         CurrentSitting existing = currentSittingRepository
-            .findById(id).orElse(null);
-        if (existing == null) return "Sitting not found";
+            .findById(id)
+            .orElse(null);
+        if (existing == null) {
+            return "Sitting not found";
+        }
         existing.setSeatedAt(sitting.getSeatedAt());
         existing.setExpectedCheckOut(sitting.getExpectedCheckOut());
         existing.setActualCheckOut(sitting.getActualCheckOut());
@@ -66,16 +63,20 @@ public class CurrentSittingService {
 
     public String patchSitting(UUID id, String notes) {
         CurrentSitting existing = currentSittingRepository
-            .findById(id).orElse(null);
-        if (existing == null) return "Sitting not found";
+            .findById(id)
+            .orElse(null);
+        if (existing == null) {
+            return "Sitting not found";
+        }
         existing.setNotes(notes);
         currentSittingRepository.save(existing);
         return "Sitting updated successfully";
     }
 
     public String deleteSitting(UUID id) {
-        if (!currentSittingRepository.existsById(id)) 
+        if (!currentSittingRepository.existsById(id)) {
             return "Sitting not found";
+        }
         currentSittingRepository.deleteById(id);
         return "Sitting deleted successfully";
     }
