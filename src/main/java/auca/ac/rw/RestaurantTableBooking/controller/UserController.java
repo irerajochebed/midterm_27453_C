@@ -100,23 +100,16 @@ public class UserController {
     }
 
 
-    @GetMapping(
-        value = "/by-cell",
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(value = "/by-cell",produces = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<List<User>> getUsersByCell(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name) {
-        return new ResponseEntity<>(
-            userService.getUsersByCell(code, name),
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(userService.getUsersByCell(code, name),HttpStatus.OK);
     }
 
-    @GetMapping(
-        value = "/by-sector",
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(value = "/by-sector",produces = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<List<User>> getUsersBySector(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name) {
