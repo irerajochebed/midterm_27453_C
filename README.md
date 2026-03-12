@@ -289,7 +289,7 @@ http://localhost:8080
 ## Postman Test Screenshots
 
 All API endpoints have been tested using Postman.
-Screenshots are available in the [postman-screenshots/`](https://github.com/irerajochebed/midterm_27453_C/tree/main/postman-screenshots) folder.
+Screenshots are available in the https://github.com/irerajochebed/midterm_27453_C/tree/main/postman-screenshots folder.
 
 ---
 
