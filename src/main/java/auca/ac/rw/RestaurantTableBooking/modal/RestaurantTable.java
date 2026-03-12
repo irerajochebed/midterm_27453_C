@@ -22,35 +22,69 @@ public class RestaurantTable {
     private String tableNumber;
     private int capacity;
     private String locationInRestaurant;
-    private boolean available;   
+    private boolean available;
     private String tableType;
 
     @ManyToMany(mappedBy = "assignedTables")
     private List<User> staffMembers = new ArrayList<>();
 
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public UUID getId() {
+         return id; 
+        
+    }
+    public void setId(UUID id) {
+         this.id = id; 
+        
+    }
 
-    public String getTableNumber() { return tableNumber; }
-    public void setTableNumber(String tableNumber) { this.tableNumber = tableNumber; }
+    public String getTableNumber() {
+         return tableNumber;
+        
+     }
+    public void setTableNumber(String tableNumber) { 
+        this.tableNumber = tableNumber; 
+    }
 
-    public int getCapacity() { return capacity; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public int getCapacity() {
+         return capacity;
+        
+     }
+    public void setCapacity(int capacity) {
+         this.capacity = capacity; 
+        
+    }
 
-    public String getLocationInRestaurant() {
-         return locationInRestaurant; 
-        }
-    public void setLocationInRestaurant(String loc) {
-         this.locationInRestaurant = loc; 
-        }
+    public String getLocationInRestaurant() { 
+        return locationInRestaurant;
+        
+     }
+    public void setLocationInRestaurant(String locationInRestaurant) { 
+        this.locationInRestaurant = locationInRestaurant; 
+    }
 
+    public boolean isAvailable() {
+         return available; 
+        
+    }
+    public void setAvailable(boolean available) {
+         this.available = available; 
+        
+    }
 
-    public boolean isAvailable() { return available; }
-    public void setAvailable(boolean available) { this.available = available; }
+    public String getTableType() {
+         return tableType; 
+        
+    }
+    public void setTableType(String tableType) {
+         this.tableType = tableType; 
+        
+    }
 
-    public String getTableType() { return tableType; }
-    public void setTableType(String tableType) { this.tableType = tableType; }
-
-    public List<User> getStaffMembers() { return staffMembers; }
-    public void setStaffMembers(List<User> staffMembers) { this.staffMembers = staffMembers; }
+    public List<User> getStaffMembers() {
+         return staffMembers; 
+        
+    }
+    public void setStaffMembers(List<User> staffMembers) { 
+        this.staffMembers = staffMembers; 
+    }
 }
