@@ -3,6 +3,8 @@ package auca.ac.rw.RestaurantTableBooking.modal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class CurrentSitting {
     private LocalDateTime actualCheckOut;
     private String notes;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "booking_id", unique = true)
     private Booking booking;

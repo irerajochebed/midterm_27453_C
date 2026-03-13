@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class RestaurantTable {
     private boolean available;
     private String tableType;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "assignedTables")
     private List<User> staffMembers = new ArrayList<>();
 

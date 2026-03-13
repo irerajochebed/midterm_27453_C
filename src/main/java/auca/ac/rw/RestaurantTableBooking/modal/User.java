@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,6 +38,7 @@ public class User {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "table_service",
