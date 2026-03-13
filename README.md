@@ -44,6 +44,7 @@ spring.jpa.show-sql=true
 ---
 
 ##  Entity Relationship Diagram (ERD)
+<img src="postman-screenshots/00_ERD_diagram.png" width="900" alt="ERD Diagram"/>
 ```
 location (self-referencing)
     ↓ One-to-Many
