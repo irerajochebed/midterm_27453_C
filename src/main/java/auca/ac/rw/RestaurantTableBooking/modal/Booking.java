@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -37,6 +38,7 @@ public class Booking {
     @JoinColumn(name = "table_id")
     private RestaurantTable table;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private CurrentSitting currentSitting;
 
